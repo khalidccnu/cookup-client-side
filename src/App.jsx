@@ -12,6 +12,7 @@ const App = () => {
         {
           path: "/",
           element: <Home />,
+          loader: (_) => fetch(`https://cookup-server-side.vercel.app/chefs`),
         },
       ],
     },
