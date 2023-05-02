@@ -1,7 +1,9 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Nav = () => {
+  const navigate = useNavigate();
+
   return (
     <nav className="bg-base-200/70">
       <div className="container">
@@ -29,7 +31,11 @@ const Nav = () => {
               </NavLink>
             </li>
           </ul>
-          <button role="button" className="btn btn-sm btn-outline">
+          <button
+            role="button"
+            className="btn btn-sm btn-outline"
+            onClick={(_) => navigate("/login")}
+          >
             Login
           </button>
         </div>
