@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 import { AuthContext } from "../context/Auth.jsx";
@@ -11,6 +11,9 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
+  const location = useLocation();
+  const fromURL = location.state?.fromURL.pathname || "/";
 
   const changeInput = ({ target }) => {
     const { name, value } = target;
@@ -29,13 +32,15 @@ const Login = () => {
       return false;
     }
 
-    signInWithEP(email.value, password.value).catch((error) => {
-      if (error.message === "Firebase: Error (auth/wrong-password).") {
-        toast.error("Incorrect password.");
-      } else if (error.message === "Firebase: Error (auth/user-not-found).") {
-        toast.error("User not found.");
-      }
-    });
+    signInWithEP(email.value, password.value)
+      .then((_) => navigate(fromURL, { replace: true }))
+      .catch((error) => {
+        if (error.message === "Firebase: Error (auth/wrong-password).") {
+          toast.error("Incorrect password.");
+        } else if (error.message === "Firebase: Error (auth/user-not-found).") {
+          toast.error("User not found.");
+        }
+      });
 
     setInput({
       email: "",

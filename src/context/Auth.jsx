@@ -16,6 +16,7 @@ import {
 export const AuthContext = createContext({});
 
 const Auth = ({ children }) => {
+  const [loading, setLoading] = useState(true);
   const [authInfo, setAuthInfo] = useState({});
   const [userInfo, setUserInfo] = useState({});
 
@@ -48,6 +49,7 @@ const Auth = ({ children }) => {
   useEffect(() => {
     const authChange = onAuthStateChanged(auth, (user) => {
       setUserInfo(user);
+      setLoading(false);
     });
 
     return () => authChange();
@@ -56,6 +58,7 @@ const Auth = ({ children }) => {
   useEffect(
     (_) => {
       setAuthInfo({
+        loading,
         userInfo,
         createUserWithEP,
         signInWithEP,

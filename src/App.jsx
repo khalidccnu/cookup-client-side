@@ -2,6 +2,7 @@ import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { chefRecipes } from "./utility/index.js";
 import Auth from "./context/Auth.jsx";
+import PrivateRoute from "./component/PrivateRoute.jsx";
 import Root from "./route/Root.jsx";
 import Error from "./route/Error.jsx";
 import Home from "./route/Home.jsx";
@@ -27,7 +28,11 @@ const App = () => {
         },
         {
           path: "/chef-recipes/:id",
-          element: <ChefRecipes />,
+          element: (
+            <PrivateRoute>
+              <ChefRecipes />
+            </PrivateRoute>
+          ),
           loader: ({ params }) => chefRecipes(params.id),
         },
         {
