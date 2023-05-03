@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaGithub, FaGoogle } from "react-icons/fa";
+import { AuthContext } from "../context/Auth.jsx";
 
 const Login = () => {
+  const { signInWithEP } = useContext(AuthContext);
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -20,6 +22,7 @@ const Login = () => {
     e.preventDefault();
     const { email, password } = e.target;
 
+    signInWithEP(email.value, password.value);
     setInput({
       email: "",
       password: "",
