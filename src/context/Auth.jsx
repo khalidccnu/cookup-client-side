@@ -7,7 +7,11 @@ import {
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
-import { auth, googleProvider } from "../utility/firebase.config.js";
+import {
+  auth,
+  googleProvider,
+  githubProvider,
+} from "../utility/firebase.config.js";
 
 export const AuthContext = createContext({});
 
@@ -33,6 +37,10 @@ const Auth = ({ children }) => {
     return signInWithPopup(auth, googleProvider);
   };
 
+  const signInWithGithub = (_) => {
+    return signInWithPopup(auth, githubProvider);
+  };
+
   const logOut = (_) => {
     return signOut(auth);
   };
@@ -52,6 +60,7 @@ const Auth = ({ children }) => {
         createUserWithEP,
         signInWithEP,
         signInWithGoogle,
+        signInWithGithub,
         logOut,
       });
     },

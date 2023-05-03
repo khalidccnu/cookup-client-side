@@ -4,7 +4,8 @@ import { FaGithub, FaGoogle } from "react-icons/fa";
 import { AuthContext } from "../context/Auth.jsx";
 
 const Login = () => {
-  const { signInWithEP, signInWithGoogle } = useContext(AuthContext);
+  const { signInWithEP, signInWithGoogle, signInWithGithub } =
+    useContext(AuthContext);
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -74,7 +75,10 @@ const Login = () => {
               <FaGoogle className="text-2xl" />
               <span>Continue with Google</span>
             </div>
-            <div className="flex justify-center items-center p-2 border space-x-2">
+            <div
+              className="flex justify-center items-center p-2 border space-x-2 cursor-pointer"
+              onClick={signInWithGithub}
+            >
               <FaGithub className="text-2xl" />
               <span>Continue with Github</span>
             </div>
