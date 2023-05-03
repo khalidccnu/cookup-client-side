@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import { AuthContext } from "../context/Auth.jsx";
 
 const Signup = () => {
@@ -23,7 +24,31 @@ const Signup = () => {
     e.preventDefault();
     const { name, email, password, purl } = e.target;
 
-    createUserWithEP(name.value, email.value, password.value, purl.value);
+    if (
+      name.value === "" ||
+      email.value === "" ||
+      password.value === "" ||
+      purl.value === ""
+    ) {
+      toast.error("All fields are required!");
+      return false;
+    }
+
+    createUserWithEP(name.value, email.value, password.value, purl.value).catch(
+      (error) => {
+        if (
+          error.message ===
+          "Firebase: Password should be at least 6 characters (auth/weak-password)."
+        ) {
+          toast.error("Password should be at least 6 characters.");
+        } else if (
+          error.message === "Firebase: Error (auth/email-already-in-use)."
+        ) {
+          toast.error("Email already in use.");
+        }
+      }
+    );
+
     setInput({
       name: "",
       email: "",

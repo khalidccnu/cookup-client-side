@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 import { AuthContext } from "../context/Auth.jsx";
 
@@ -23,7 +24,19 @@ const Login = () => {
     e.preventDefault();
     const { email, password } = e.target;
 
-    signInWithEP(email.value, password.value);
+    if (email.value === "" || password.value === "") {
+      toast.error("All fields are required!");
+      return false;
+    }
+
+    signInWithEP(email.value, password.value).catch((error) => {
+      if (error.message === "Firebase: Error (auth/wrong-password).") {
+        toast.error("Incorrect password.");
+      } else if (error.message === "Firebase: Error (auth/user-not-found).") {
+        toast.error("User not found.");
+      }
+    });
+
     setInput({
       email: "",
       password: "",
