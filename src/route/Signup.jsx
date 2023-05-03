@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { AuthContext } from "../context/Auth.jsx";
 
 const Signup = () => {
-  const { createUserWithEP } = useContext(AuthContext);
+  const { createUserWithEP, logOut } = useContext(AuthContext);
   const [input, setInput] = useState({
     name: "",
     email: "",
@@ -20,7 +20,7 @@ const Signup = () => {
     });
   };
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     const { name, email, password, purl } = e.target;
 
@@ -34,21 +34,25 @@ const Signup = () => {
       return false;
     }
 
-    createUserWithEP(name.value, email.value, password.value, purl.value).catch(
-      (error) => {
-        if (
-          error.message ===
-          "Firebase: Password should be at least 6 characters (auth/weak-password)."
-        ) {
-          toast.error("Password should be at least 6 characters.");
-        } else if (
-          error.message === "Firebase: Error (auth/email-already-in-use)."
-        ) {
-          toast.error("Email already in use.");
-        }
+    await createUserWithEP(
+      name.value,
+      email.value,
+      password.value,
+      purl.value
+    ).catch((error) => {
+      if (
+        error.message ===
+        "Firebase: Password should be at least 6 characters (auth/weak-password)."
+      ) {
+        toast.error("Password should be at least 6 characters.");
+      } else if (
+        error.message === "Firebase: Error (auth/email-already-in-use)."
+      ) {
+        toast.error("Email already in use.");
       }
-    );
+    });
 
+    logOut();
     setInput({
       name: "",
       email: "",
