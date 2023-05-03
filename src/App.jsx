@@ -1,6 +1,7 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { chefRecipes } from "./utility/index.js";
+import Auth from "./context/Auth.jsx";
 import Root from "./route/Root.jsx";
 import Error from "./route/Error.jsx";
 import Home from "./route/Home.jsx";
@@ -12,7 +13,11 @@ const App = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Root />,
+      element: (
+        <Auth>
+          <Root />
+        </Auth>
+      ),
       errorElement: <Error />,
       children: [
         {

@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/Auth.jsx";
 
 const Signup = () => {
+  const { createUserWithEP } = useContext(AuthContext);
   const [input, setInput] = useState({
     name: "",
     email: "",
@@ -21,6 +23,7 @@ const Signup = () => {
     e.preventDefault();
     const { name, email, password, purl } = e.target;
 
+    createUserWithEP(name.value, email.value, password.value, purl.value);
     setInput({
       name: "",
       email: "",
