@@ -2,6 +2,7 @@ import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { chefRecipes } from "./utility/index.js";
 import Root from "./route/Root.jsx";
+import Error from "./route/Error.jsx";
 import Home from "./route/Home.jsx";
 import ChefRecipes from "./route/ChefRecipes.jsx";
 
@@ -10,6 +11,7 @@ const App = () => {
     {
       path: "/",
       element: <Root />,
+      errorElement: <Error />,
       children: [
         {
           path: "/",
