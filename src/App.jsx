@@ -1,5 +1,6 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { chefRecipes } from "./utility/index.js";
 import Root from "./route/Root.jsx";
 import Home from "./route/Home.jsx";
 import ChefRecipes from "./route/ChefRecipes.jsx";
@@ -18,8 +19,7 @@ const App = () => {
         {
           path: "/chef-recipes/:id",
           element: <ChefRecipes />,
-          loader: ({ params }) =>
-            fetch(`https://cookup-server-side.vercel.app/chefs/${params.id}`),
+          loader: ({ params }) => chefRecipes(params.id),
         },
       ],
     },
