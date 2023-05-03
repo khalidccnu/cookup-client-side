@@ -5,6 +5,7 @@ import Root from "./route/Root.jsx";
 import Error from "./route/Error.jsx";
 import Home from "./route/Home.jsx";
 import ChefRecipes from "./route/ChefRecipes.jsx";
+import Login from "./route/Login.jsx";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -22,6 +23,10 @@ const App = () => {
           path: "/chef-recipes/:id",
           element: <ChefRecipes />,
           loader: ({ params }) => chefRecipes(params.id),
+        },
+        {
+          path: "/login",
+          element: <Login />,
         },
       ],
     },
