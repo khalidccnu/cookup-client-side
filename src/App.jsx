@@ -6,6 +6,7 @@ import Error from "./route/Error.jsx";
 import Home from "./route/Home.jsx";
 import ChefRecipes from "./route/ChefRecipes.jsx";
 import Login from "./route/Login.jsx";
+import Signup from "./route/Signup.jsx";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -27,6 +28,10 @@ const App = () => {
         {
           path: "/login",
           element: <Login />,
+        },
+        {
+          path: "/signup",
+          element: <Signup />,
         },
       ],
     },
