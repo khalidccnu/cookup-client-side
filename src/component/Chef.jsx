@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import LazyLoad from "react-lazyload";
 
 const Chef = ({ chef }) => {
   const navigate = useNavigate();
@@ -15,7 +16,9 @@ const Chef = ({ chef }) => {
   return (
     <div className="card bg-base-200/70">
       <figure className="px-10 pt-10">
-        <img src={photo} alt="" className="w-32 h-32 rounded-xl" />
+        <LazyLoad height={128}>
+          <img src={photo} alt="" className="w-32 h-32 rounded-xl" />
+        </LazyLoad>
       </figure>
       <div className="card-body items-center">
         <h2 className="card-title">{name}</h2>

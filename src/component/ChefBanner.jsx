@@ -1,4 +1,5 @@
 import React from "react";
+import LazyLoad from "react-lazyload";
 import Lottie from "lottie-react";
 import anmChef from "../asset/chef.json";
 
@@ -18,7 +19,9 @@ const ChefBanner = ({ chef }) => {
         <div className="flex flex-col-reverse md:flex-row md:items-center max-w-4xl mx-auto md:space-x-6">
           <div className="mt-6 md:mt-0">
             <div className="flex items-center space-x-1.5">
-              <img src={photo} alt="" className="w-14 h-14 rounded-xl" />
+              <LazyLoad height={56}>
+                <img src={photo} alt="" className="w-14 h-14 rounded-xl" />
+              </LazyLoad>
               <h2 className="font-semibold text-3xl">{name}</h2>
             </div>
             <p className="mt-1 font-medium">{description}</p>
