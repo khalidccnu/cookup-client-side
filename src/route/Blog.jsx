@@ -1,10 +1,18 @@
 import React from "react";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import { FaPrint } from "react-icons/fa";
+import CreateBlogPDF from "../component/CreateBlogPDF.jsx";
 
 const Blog = () => {
   return (
     <section className="py-5">
       <div className="container">
-        <h2 className="font-semibold text-2xl text-center mb-5">Blog</h2>
+        <div className="flex justify-center mb-5">
+          <h2 className="font-semibold text-2xl">Blog</h2>
+          <PDFDownloadLink document={<CreateBlogPDF />} fileName="blog.pdf">
+            <FaPrint className="text-xs" />
+          </PDFDownloadLink>
+        </div>
         <div className="max-w-lg mx-auto space-y-3">
           <div className="collapse border border-sky-900 rounded-lg">
             <input type="checkbox" />
