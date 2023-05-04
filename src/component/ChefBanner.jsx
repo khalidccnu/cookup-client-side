@@ -16,8 +16,8 @@ const ChefBanner = ({ chef }) => {
   return (
     <section className="py-5">
       <div className="container">
-        <div className="flex flex-col-reverse md:flex-row md:items-center max-w-4xl mx-auto md:space-x-6">
-          <div className="mt-6 md:mt-0">
+        <div className="flex flex-col-reverse md:flex-row md:items-center max-w-4xl mx-auto">
+          <div className="mt-6 md:mt-0 md:mr-6">
             <div className="flex items-center space-x-1.5">
               <LazyLoad height={56}>
                 <img src={photo} alt="" className="w-14 h-14 rounded-xl" />
@@ -31,7 +31,7 @@ const ChefBanner = ({ chef }) => {
             </div>
             <small className="font-medium">Like: {like}</small>
           </div>
-          <div>
+          <div className="ml-auto">
             <Lottie animationData={anmChef} loop={true} className="max-w-2xl" />
           </div>
         </div>

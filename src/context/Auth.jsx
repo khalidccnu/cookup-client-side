@@ -1,4 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
+import { Circles } from "react-loader-spinner";
 import {
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -17,11 +18,17 @@ export const AuthContext = createContext({});
 
 const Auth = ({ children }) => {
   const [loading, setLoading] = useState(true);
-  const [authInfo, setAuthInfo] = useState({});
   const [userInfo, setUserInfo] = useState({});
 
   const createUserWithEP = async (name, email, password, purl) => {
-    const user = await createUserWithEmailAndPassword(auth, email, password);
+    const user = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    ).then((_) => {
+      logOut();
+      return true;
+    });
     await updateProfile(auth.currentUser, {
       displayName: name,
       photoURL: purl,
@@ -46,6 +53,16 @@ const Auth = ({ children }) => {
     return signOut(auth);
   };
 
+  const authInfo = {
+    loading,
+    userInfo,
+    createUserWithEP,
+    signInWithEP,
+    signInWithGoogle,
+    signInWithGithub,
+    logOut,
+  };
+
   useEffect(() => {
     const authChange = onAuthStateChanged(auth, (user) => {
       setUserInfo(user);
@@ -55,22 +72,11 @@ const Auth = ({ children }) => {
     return () => authChange();
   }, []);
 
-  useEffect(
-    (_) => {
-      setAuthInfo({
-        loading,
-        userInfo,
-        createUserWithEP,
-        signInWithEP,
-        signInWithGoogle,
-        signInWithGithub,
-        logOut,
-      });
-    },
-    [userInfo]
-  );
-
-  return (
+  return loading ? (
+    <div className="flex justify-center mt-5">
+      <Circles height="40" width="40" color="#4bb75b" />
+    </div>
+  ) : (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );
 };

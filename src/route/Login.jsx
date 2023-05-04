@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaGithub, FaGoogle } from "react-icons/fa";
@@ -23,7 +23,7 @@ const Login = () => {
     });
   };
 
-  const handleLogin = (e) => {
+  const handleLoginWithEP = async (e) => {
     e.preventDefault();
     const { email, password } = e.target;
 
@@ -32,8 +32,11 @@ const Login = () => {
       return false;
     }
 
-    signInWithEP(email.value, password.value)
-      .then((_) => navigate(fromURL, { replace: true }))
+    await signInWithEP(email.value, password.value)
+      .then((_) => {
+        toast.success("Login successful!");
+        navigate(fromURL, { replace: true });
+      })
       .catch((error) => {
         if (error.message === "Firebase: Error (auth/wrong-password).") {
           toast.error("Incorrect password.");
@@ -48,12 +51,34 @@ const Login = () => {
     });
   };
 
+  const handleLoginWithGoogle = (_) => {
+    signInWithGoogle().then((_) => {
+      toast.success("Login successful!");
+      navigate(fromURL, { replace: true });
+    });
+  };
+
+  const handleLoginWithGithub = (_) => {
+    signInWithGithub().then((_) => {
+      toast.success("Login successful!");
+      navigate(fromURL, { replace: true });
+    });
+  };
+
+  useEffect((_) => {
+    if (location.state?.fromURL.pathname)
+      toast.warn("Only registered user can access this page.");
+  }, []);
+
   return (
     <section className="py-5">
       <div className="container">
         <div className="artboard phone-2 max-w-full !h-auto mx-auto border rounded p-5">
           <h2 className="font-semibold text-2xl text-center">Login</h2>
-          <form className="form-control mt-5 space-y-4" onSubmit={handleLogin}>
+          <form
+            className="form-control mt-5 space-y-4"
+            onSubmit={handleLoginWithEP}
+          >
             <div>
               <label className="label label-text pt-0">Email</label>
               <input
@@ -88,14 +113,14 @@ const Login = () => {
             <div className="divider">or</div>
             <div
               className="flex justify-center items-center p-2 border space-x-2 cursor-pointer"
-              onClick={signInWithGoogle}
+              onClick={handleLoginWithGoogle}
             >
               <FaGoogle className="text-2xl" />
               <span>Continue with Google</span>
             </div>
             <div
               className="flex justify-center items-center p-2 border space-x-2 cursor-pointer"
-              onClick={signInWithGithub}
+              onClick={handleLoginWithGithub}
             >
               <FaGithub className="text-2xl" />
               <span>Continue with Github</span>

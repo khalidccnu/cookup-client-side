@@ -1,16 +1,18 @@
 import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 import { AuthContext } from "../context/Auth.jsx";
 
 const Nav = () => {
-  const { loading, userInfo, logOut } = useContext(AuthContext);
+  const { userInfo, logOut } = useContext(AuthContext);
 
   return (
     <nav className="bg-base-200/70">
       <div className="container">
         <div className="navbar justify-between">
           <h1 className="font-bold text-xl">CookUp</h1>
-          <div>
+          <div className="space-x-3">
             <ul className="flex">
               <li>
                 <NavLink
@@ -33,17 +35,16 @@ const Nav = () => {
                 </NavLink>
               </li>
             </ul>
-            {loading ? (
-              ""
-            ) : userInfo?.uid ? (
+            {userInfo?.uid ? (
               <div className="dropdown dropdown-end">
-                <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                <label
+                  tabIndex={0}
+                  className="btn btn-ghost btn-circle avatar"
+                  data-tooltip-id="user-name"
+                  data-tooltip-content={userInfo.displayName}
+                >
                   <div className="w-10 rounded-full">
-                    <img
-                      src={userInfo.photoURL}
-                      alt=""
-                      title={userInfo.displayName}
-                    />
+                    <img src={userInfo.photoURL} alt="" />
                   </div>
                 </label>
                 <ul
@@ -74,6 +75,7 @@ const Nav = () => {
             )}
           </div>
         </div>
+        <Tooltip id="user-name" />
       </div>
     </nav>
   );
