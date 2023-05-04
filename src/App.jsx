@@ -7,6 +7,7 @@ import Root from "./route/Root.jsx";
 import Error from "./route/Error.jsx";
 import Home from "./route/Home.jsx";
 import ChefRecipes from "./route/ChefRecipes.jsx";
+import Blog from "./route/Blog.jsx";
 import Login from "./route/Login.jsx";
 import Signup from "./route/Signup.jsx";
 
@@ -34,6 +35,10 @@ const App = () => {
             </PrivateRoute>
           ),
           loader: ({ params }) => chefRecipes(params.id),
+        },
+        {
+          path: "/blog",
+          element: <Blog />,
         },
         {
           path: "/login",
