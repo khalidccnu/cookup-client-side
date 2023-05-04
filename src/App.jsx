@@ -2,6 +2,7 @@ import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { chefRecipes } from "./utility/index.js";
 import Auth from "./context/Auth.jsx";
+import LogOffRoute from "./component/LogOffRoute.jsx";
 import PrivateRoute from "./component/PrivateRoute.jsx";
 import Root from "./route/Root.jsx";
 import Error from "./route/Error.jsx";
@@ -42,11 +43,19 @@ const App = () => {
         },
         {
           path: "/login",
-          element: <Login />,
+          element: (
+            <LogOffRoute>
+              <Login />
+            </LogOffRoute>
+          ),
         },
         {
           path: "/signup",
-          element: <Signup />,
+          element: (
+            <LogOffRoute>
+              <Signup />
+            </LogOffRoute>
+          ),
         },
       ],
     },
