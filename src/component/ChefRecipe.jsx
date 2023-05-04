@@ -10,7 +10,7 @@ const ChefRecipe = ({ recipe }) => {
   const favorite = (id, name) => {
     addFavorite(id);
     setFavorite(true);
-    toast.success(name + " is added!");
+    toast.success(name + " is added to favorite!");
   };
 
   const checkFavorite = (id) => {

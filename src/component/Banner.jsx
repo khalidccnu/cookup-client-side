@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import Lottie from "lottie-react";
+import { AuthContext } from "../context/Auth.jsx";
 import anmFood from "../asset/food.json";
 
 const Banner = () => {
+  const { userInfo } = useContext(AuthContext);
+
   return (
     <section className="py-5">
       <div className="container">
@@ -12,9 +15,16 @@ const Banner = () => {
             <h2 className="font-semibold text-5xl mb-3">
               Home Made Food at your doorstep
             </h2>
-            <span>
-              Already a member? <Link to={"/login"}>Log In</Link>
-            </span>
+            {userInfo?.uid ? (
+              <span>
+                Hi{userInfo.displayName ? " " + userInfo.displayName : ""}, Glad
+                to see you here!
+              </span>
+            ) : (
+              <span>
+                Already a member? <Link to={"/login"}>Log In</Link>
+              </span>
+            )}
           </div>
           <div>
             <Lottie animationData={anmFood} loop={true} className="max-w-2xl" />

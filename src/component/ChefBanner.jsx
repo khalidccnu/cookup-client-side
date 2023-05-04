@@ -31,7 +31,7 @@ const ChefBanner = ({ chef }) => {
             </div>
             <small className="font-medium">Like: {like}</small>
           </div>
-          <div className="ml-auto">
+          <div className="md:ml-auto">
             <Lottie animationData={anmChef} loop={true} className="max-w-2xl" />
           </div>
         </div>
